@@ -10,7 +10,7 @@ let embedded:PGlite; let server:PGLiteSocketServer; let pool:Pool; let dir:strin
 const a='10000000-0000-4000-8000-000000000001', b='10000000-0000-4000-8000-000000000002';
 beforeAll(async()=>{
  embedded=await PGlite.create();
- for(const file of ['0001_foundation.sql','0002_auth.sql','0003_operations.sql','0004_sources.sql','0005_intake.sql','0006_sheets.sql','0007_flow.sql','0008_reporting.sql','0009_activation.sql']) await embedded.exec(await readFile(`src/db/migrations/${file}`,'utf8'));
+ for(const file of ['0001_foundation.sql','0002_auth.sql','0003_operations.sql','0004_sources.sql','0005_intake.sql','0006_sheets.sql','0007_flow.sql','0008_reporting.sql','0009_activation.sql','0010_profile.sql','0011_source_identity.sql']) await embedded.exec(await readFile(`src/db/migrations/${file}`,'utf8'));
  dir=await mkdtemp(join(tmpdir(),'vetpath-test-'));server=new PGLiteSocketServer({db:embedded,path:join(dir,'.s.PGSQL.5432')});await server.start();pool=new Pool({host:dir,port:5432,user:'postgres',database:'postgres',max:1});
  await pool.query(`INSERT INTO "user"(id,name,email) VALUES('manager-a','A','a@example.test'),('reception-a','R','r@example.test')`);
  await pool.query("INSERT INTO provider_locations(id,name,care_type,address,latitude,longitude,source_label) VALUES($1,'Demo A','emergency','A',37,-122,'demo'),($2,'Demo B','urgent','B',37,-122,'demo')",[a,b]);
@@ -101,5 +101,13 @@ describe('case-scoped handoff',()=>{
   await expect(acknowledgeHandoff(pool,'reception-a',handoff.id)).rejects.toMatchObject({code:'forbidden'});
   await acknowledgeHandoff(pool,'clinician-b',handoff.id);expect((await pool.query('SELECT state FROM handoffs WHERE id=$1',[handoff.id])).rows[0].state).toBe('acknowledged');
   const start=new Date(Date.now()+3*86400000),end=new Date(start.getTime()+3600000);await createSlot(pool,'manager-a',a,start,end);await expect(createSlot(pool,'manager-a',a,new Date(start.getTime()+1000),end)).rejects.toMatchObject({code:'conflict'});
+ });
+});
+
+describe('directory matching',()=>{
+ it('returns explicit alternatives for strict unknown filters and does not suppress emergency care on price',async()=>{
+  const {searchProviders}=await import('../../src/server/repositories/providers');
+  const strict=await searchProviders({lat:37,lon:-122,species:'rabbit',includeUnknown:false},pool);expect(strict.alternatives).toBe(true);expect(strict.providers.length).toBeGreaterThan(0);expect(strict.providers[0].unknowns).toContain('Species support unconfirmed');
+  const fee=await searchProviders({lat:37,lon:-122,includeUnknown:false,maxFeeCents:1},pool);expect(fee.providers.some(p=>p.id===a)).toBe(true);expect(fee.providers.some(p=>p.id===b)).toBe(false);
  });
 });

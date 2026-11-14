@@ -1,0 +1,14 @@
+ALTER TABLE provider_locations ADD COLUMN fictional boolean NOT NULL DEFAULT false;
+ALTER TABLE provider_locations ADD COLUMN city text;
+ALTER TABLE provider_locations ADD COLUMN state text;
+ALTER TABLE provider_locations ADD COLUMN postal_code text;
+ALTER TABLE provider_locations ADD COLUMN website text;
+ALTER TABLE provider_locations ADD COLUMN hours_text text;
+ALTER TABLE provider_locations ADD COLUMN exam_fee_min_cents integer CHECK(exam_fee_min_cents>=0);
+ALTER TABLE provider_locations ADD COLUMN exam_fee_max_cents integer CHECK(exam_fee_max_cents>=0);
+ALTER TABLE provider_locations ADD COLUMN exam_fee_scope text;
+ALTER TABLE provider_locations ADD COLUMN payment_options text[] NOT NULL DEFAULT '{}';
+ALTER TABLE provider_locations ADD COLUMN source_verified_at date;
+ALTER TABLE provider_locations ADD COLUMN timezone text NOT NULL DEFAULT 'America/Los_Angeles';
+ALTER TABLE provider_locations ADD CONSTRAINT valid_fee_range CHECK(exam_fee_min_cents IS NULL OR exam_fee_max_cents IS NULL OR exam_fee_min_cents<=exam_fee_max_cents);
+UPDATE provider_locations SET fictional=true WHERE external_id LIKE 'demo-%' AND demo=true;
