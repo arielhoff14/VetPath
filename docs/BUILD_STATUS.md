@@ -1,5 +1,9 @@
-# Build status
+# Build status — early implementation
 
-This repository is in early development. It is not a functional clinical pilot and must not be used for real patient data or clinical decisions. The landing page is separately hosted as a demonstration.
+This is not a completed pilot and must not be used for real patient data or clinical decisions. The public landing page is a separate, limited demonstration.
 
-Implemented locally: initial safety rule functions and unit tests, plus a starting SQL migration. The schema has not been applied to a PostgreSQL server or security-reviewed. Authentication, server-side authorization, discovery API, import/sync, clinic workflows, messaging, handoffs, worker, deployment, and other P0 requirements remain to be implemented and tested. This list is not a substitute for the full build brief.
+Implemented in the development branch: a PostgreSQL schema; Better Auth email/password sessions with public registration disabled; demo-only provisioning; location and role checks; public directory search with expiry-aware availability; a clinic availability update; CSV/XLSX preview and source-ID re-import; an internal source editor; read-only Google Sheets adapter and polling worker; case-specific owner links; intake transitions; basic clinician assessments, visit stages, slots and handoffs; and early call/reporting data structures. These features require further security, usability, real PostgreSQL, accessibility and end-to-end verification.
+
+Not complete: invitation and real partner onboarding; comprehensive fact provenance, duplicate review and field-level conflict UI; full hours, fees, services and geography handling; Google Sheets authorized-read verification; robust source recovery and reviewed rollback; complete patient-flow, handoff and appointment operations; notification delivery and sandbox inbox; coverage, pilot and full marketing UI/reporting; analytics attribution completeness; demo scenario controls and reset; privacy/retention tools; independent-browser realtime acceptance testing; full deployment and backup setup; CI and browser test suite; and clinical review. External AI, messaging, Maps APIs and PIMS are not connected. Consult the original brief for the complete acceptance criteria.
+
+Current tests use an embedded PostgreSQL-compatible engine, which is useful but not a substitute for testing on a real PostgreSQL server and deployed multi-process environment. The basic owner-to-clinic demo was exercised locally. Clinic and owner content remains simulated.
