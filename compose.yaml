@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: vetpath
+      POSTGRES_PASSWORD: vetpath
+      POSTGRES_DB: vetpath
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - vetpath_db:/var/lib/postgresql/data
+volumes:
+  vetpath_db:
