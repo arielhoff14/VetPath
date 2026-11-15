@@ -45,3 +45,10 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
       - name: Test owner and clinic sessions
         run: pnpm exec playwright test --config=hackathon-demo/playwright.config.ts
+      - name: Save prototype walkthrough videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vetpath-prototype-walkthrough
+          path: hackathon-demo/test-videos/*.webm
+          if-no-files-found: ignore
