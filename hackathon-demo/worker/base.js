@@ -17,9 +17,9 @@ export default {async fetch(request,env){const url=new URL(request.url);try{
  if(!sameOrigin(request))return json({error:'Invalid origin.'},403);
  if(await limited(env.DB))return json({error:'Shared demo is busy. Try again shortly.'},429);
  if(url.pathname==='/api/cases'){
-  const payload=await body(request);if(Object.keys(payload).length)return json({error:'Only predefined sample cases are supported.'},400);
+  const payload=await body(request);const allowedSpecies=['Dog','Cat','Rabbit','Bird','Reptile','Other exotic'],allowedCare=['general','emergency','specialty','exotic'];if(Object.keys(payload).some(k=>!['species','care'].includes(k))||(payload.species&&!allowedSpecies.includes(payload.species))||(payload.care&&!allowedCare.includes(payload.care)))return json({error:'Only predefined fictional case categories are supported.'},400);
   const count=await env.DB.prepare('SELECT count(*) AS n FROM demo_cases').first();if(Number(count?.n||0)>=50)return json({error:'The shared demo queue is full.'},429);
-  const id=crypto.randomUUID(),now=Date.now(),examples=[['Milo · demo dog','Synthetic urgent-care request'],['Luna · demo cat','Synthetic owner request'],['Scout · demo dog','Synthetic owner request']];const item=examples[Math.floor(Math.random()*examples.length)];
+  const id=crypto.randomUUID(),now=Date.now(),species=payload.species||'Dog',care=payload.care||'general',careLabel={general:'Urgent / general care',emergency:'Emergency care',specialty:'Specialty consultation',exotic:'Exotic animal care'};const item=['Sample '+species.toLowerCase()+' · fictional',careLabel[care]+' · fictional request'];
   await env.DB.batch([env.DB.prepare('INSERT INTO demo_cases(id,pet,reason,stage,created_at,updated_at) VALUES(?,?,?,?,?,?)').bind(id,item[0],item[1],'submitted',now,now),env.DB.prepare('INSERT INTO demo_events(id,event,created_at) VALUES(?,?,?)').bind(crypto.randomUUID(),'case.created',now)]);return json({saved:true,id,pet:item[0]},201);
  }
  if(url.pathname==='/api/reset'){const input=await body(request);if(input.role!=='manager')return json({error:'Select the simulated manager role.'},403);await env.DB.batch([env.DB.prepare('DELETE FROM demo_cases'),env.DB.prepare('DELETE FROM demo_status'),env.DB.prepare('DELETE FROM demo_events')]);return json({saved:true});}
