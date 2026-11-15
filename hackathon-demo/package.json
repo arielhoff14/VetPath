@@ -1,0 +1,1 @@
+{"name":"vetpath-hackathon-demo","private":true,"type":"module","scripts":{"build":"bash scripts/build.sh","test":"node scripts/test-worker.mjs"}}

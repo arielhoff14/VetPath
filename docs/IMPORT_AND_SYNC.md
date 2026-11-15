@@ -1,0 +1,9 @@
+# Directory import and synchronization
+
+Use the admin page after signing in as a demo administrator. Create a source, choose CSV/XLSX or use the internal grid, map column headers, validate, inspect the preview, and commit. `templates/providers.csv` is a header template; `providers-synthetic-example.csv` contains fictional examples and should be imported only into a source marked fictional in a demo database.
+
+The source ID and external ID form the stable identity. Keep IDs unchanged when renaming or reordering providers. The importer reports malformed rows, refuses a duplicate ID within a batch, and stops for an existing address candidate. Re-importing the same snapshot does not duplicate a provider. Blank optional values do not clear saved facts. A field lock retains the effective value; a complete conflict review and unlock interface is not yet available. Disappearing rows are marked missing from the source, not deleted.
+
+Uploads are limited to 10 MB and 10,000 rows. XLSX archive expansion, entry count and worksheet dimensions are bounded; macros, embedded files and external links are rejected. Formulas are never executed; cells need cached values. Imported data is directory data, not a source of staff access, clinical priority, or live capacity.
+
+For Google Sheets, configure a source ID, range and mapping, provide `GOOGLE_SERVICE_ACCOUNT_JSON` as a server/worker secret, and share only that sheet with the service account. The connector requests read-only access. The independently running worker polls at a default 60-second interval; manual Sync Now uses the same import service. Status is connected only after a successful authorized read. Errors preserve the last good directory snapshot. There is no real-sheet verification in this repository yet, no write-back to Google, and no Microsoft 365 continuous sync. Detailed change conflict review and rollback are still required.

@@ -1,0 +1,2 @@
+CREATE TABLE invitations(id uuid PRIMARY KEY DEFAULT gen_random_uuid(),location_id uuid NOT NULL REFERENCES provider_locations(id),email text NOT NULL,role text NOT NULL CHECK(role IN ('manager','clinician','reception')),token_hash text NOT NULL UNIQUE,created_by text NOT NULL REFERENCES "user"(id),expires_at timestamptz NOT NULL,used_at timestamptz,created_at timestamptz NOT NULL DEFAULT now());
+CREATE INDEX invitations_location_idx ON invitations(location_id,created_at DESC);

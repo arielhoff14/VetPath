@@ -10,7 +10,7 @@ let embedded:PGlite; let server:PGLiteSocketServer; let pool:Pool; let dir:strin
 const a='10000000-0000-4000-8000-000000000001', b='10000000-0000-4000-8000-000000000002';
 beforeAll(async()=>{
  embedded=await PGlite.create();
- for(const file of ['0001_foundation.sql','0002_auth.sql','0003_operations.sql','0004_sources.sql','0005_intake.sql','0006_sheets.sql','0007_flow.sql','0008_reporting.sql','0009_activation.sql','0010_profile.sql','0011_source_identity.sql']) await embedded.exec(await readFile(`src/db/migrations/${file}`,'utf8'));
+ for(const file of ['0001_foundation.sql','0002_auth.sql','0003_operations.sql','0004_sources.sql','0005_intake.sql','0006_sheets.sql','0007_flow.sql','0008_reporting.sql','0009_activation.sql','0010_profile.sql','0011_source_identity.sql','0012_invitations.sql','0013_pilot.sql','0014_pilot_value.sql','0015_attachments.sql','0016_reference.sql']) await embedded.exec(await readFile(`src/db/migrations/${file}`,'utf8'));
  dir=await mkdtemp(join(tmpdir(),'vetpath-test-'));server=new PGLiteSocketServer({db:embedded,path:join(dir,'.s.PGSQL.5432')});await server.start();pool=new Pool({host:dir,port:5432,user:'postgres',database:'postgres',max:1});
  await pool.query(`INSERT INTO "user"(id,name,email) VALUES('manager-a','A','a@example.test'),('reception-a','R','r@example.test')`);
  await pool.query("INSERT INTO provider_locations(id,name,care_type,address,latitude,longitude,source_label) VALUES($1,'Demo A','emergency','A',37,-122,'demo'),($2,'Demo B','urgent','B',37,-122,'demo')",[a,b]);
@@ -109,5 +109,29 @@ describe('directory matching',()=>{
   const {searchProviders}=await import('../../src/server/repositories/providers');
   const strict=await searchProviders({lat:37,lon:-122,species:'rabbit',includeUnknown:false},pool);expect(strict.alternatives).toBe(true);expect(strict.providers.length).toBeGreaterThan(0);expect(strict.providers[0].unknowns).toContain('Species support unconfirmed');
   const fee=await searchProviders({lat:37,lon:-122,includeUnknown:false,maxFeeCents:1},pool);expect(fee.providers.some(p=>p.id===a)).toBe(true);expect(fee.providers.some(p=>p.id===b)).toBe(false);
+ });
+});
+
+describe('staff invitations',()=>{
+ it('requires a location manager and consumes a scoped invitation once',async()=>{
+  const {inviteStaff,inspectInvite,acceptInvite}=await import('../../src/server/services/invitations');
+  await expect(inviteStaff(pool,'reception-a',a,'new@example.test','clinician')).rejects.toMatchObject({code:'forbidden'});
+  await expect(inviteStaff(pool,'manager-a',b,'new@example.test','clinician')).rejects.toMatchObject({code:'forbidden'});
+  const token=await inviteStaff(pool,'manager-a',a,'new@example.test','reception');expect((await inspectInvite(pool,token))?.role).toBe('reception');
+  await acceptInvite(pool,token,'New Staff','a-long-demo-password');expect(await inspectInvite(pool,token)).toBeNull();await expect(acceptInvite(pool,token,'New Staff','a-long-demo-password')).rejects.toMatchObject({code:'forbidden'});
+  const result=await pool.query('SELECT m.role,m.location_id FROM memberships m JOIN "user" u ON u.id=m.user_id WHERE u.email=$1',['new@example.test']);expect(result.rows).toEqual([{role:'reception',location_id:a}]);
+ },30000);
+});
+
+describe('private attachment access',()=>{
+ it('limits writes to the owner grant or home-clinic members and shared reads to acknowledged handoffs',async()=>{
+  const {caseAccess,saveAttachment,getAttachmentBytes}=await import('../../src/server/storage/private');const {createIntake}=await import('../../src/server/services/intake');const {createHandoff,acknowledgeHandoff}=await import('../../src/server/services/flow');
+  const created=await createIntake(pool,a,'Synthetic attachment case');process.env.PRIVATE_STORAGE_DIR=join(dir,'private');
+  expect(await caseAccess(pool,created.caseId,null,created.token,true)).toBeTruthy();expect(await caseAccess(pool,created.caseId,'clinician-b',null,false)).toBeNull();
+  await createHandoff(pool,'clinician-a',created.caseId,b,'Synthetic transfer',true);const h=(await pool.query('SELECT id FROM handoffs WHERE case_id=$1',[created.caseId])).rows[0].id;
+  expect(await caseAccess(pool,created.caseId,'clinician-b',null,false)).toBeNull();await acknowledgeHandoff(pool,'clinician-b',h);
+  expect(await caseAccess(pool,created.caseId,'clinician-b',null,false)).toBeTruthy();expect(await caseAccess(pool,created.caseId,'clinician-b',null,true)).toBeNull();
+  const bytes=new TextEncoder().encode('synthetic record');const attachment=await saveAttachment(pool,created.caseId,null,created.token,'test.txt','text/plain',bytes);const record=(await pool.query('SELECT storage_key FROM attachments WHERE id=$1',[attachment.id])).rows[0];expect((await getAttachmentBytes(record.storage_key)).toString()).toBe('synthetic record');
+  await expect(saveAttachment(pool,created.caseId,'clinician-b',null,'not-allowed.txt','text/plain',bytes)).rejects.toThrow('Access denied');
  });
 });

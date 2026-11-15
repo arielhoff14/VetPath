@@ -38,3 +38,10 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm build
+      - name: Test hackathon worker
+        working-directory: hackathon-demo
+        run: node scripts/test-worker.mjs
+      - name: Install browser
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Test owner and clinic sessions
+        run: pnpm exec playwright test --config=hackathon-demo/playwright.config.ts

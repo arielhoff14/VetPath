@@ -13,7 +13,9 @@
     "db:seed:demo": "node scripts/seed-demo.mjs",
     "db:init:demo": "node scripts/init-demo.mjs",
     "db:staff:demo": "node scripts/create-demo-staff.mjs",
-    "worker": "tsx src/server/jobs/worker.ts"
+    "worker": "node --env-file-if-exists=.env.local --import tsx src/server/jobs/worker.ts",
+    "bootstrap": "node scripts/bootstrap.mjs",
+    "db:seed:reference": "node scripts/seed-reference.mjs"
   },
   "dependencies": {
     "@js-temporal/polyfill": "^0.5.1",
@@ -33,6 +35,7 @@
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.16",
     "@electric-sql/pglite-socket": "^0.2.19",
+    "@playwright/test": "^1.65.1",
     "@types/node": "^26.6.6",
     "@types/pg": "^8.23.1",
     "@types/react": "^19.3.0",
