@@ -1,28 +1,28 @@
-external_id,name,website,care_type,address,city,state,postal_code,phone,hours_text,source_verified_at
-reference-ef677b0f23908a7a,Pacific Veterinary Emergency + Specialty Hospital,https://www.pacvetemergency.com/,unknown,,,,,,,
-reference-1afe3ea923d7eb79,Remedy Veterinary Specialists,https://www.remedyvets.com/,unknown,,,,,,,
-reference-d1e039ca1788d8b7,MedVet (Silicon Valley),https://www.medvet.com/location/silicon-valley/,unknown,,,,,,,
-reference-789f9e7c2a7fe8e6,Veterinary Emergency Group (San Ramon),https://www.veg.com/locations/california/san-ramon,unknown,,,,,,,
-reference-76beb366cebda1b6,Veterinary Emergency Group (Larkspur),https://www.veg.com/locations/california/larkspur,unknown,,,,,,,
-reference-f1caabd5432e14ea,MedVet Mountain View,https://www.medvet.com/location/mountain-view/,emergency,601 Showers Dr,Mountain View,CA,94040,650-494-1461,ER listed 24/7; call to confirm,2026-11-14
-reference-dcf3b03486ebb44c,Veterinary Emergency Group (San Jose),https://www.veg.com/locations/california/san-jose,unknown,,,,,,,
-reference-97337da7ba9c3b8b,Ocean Avenue Veterinary Group,https://oceanavevethosp.com/,unknown,,,,,,,
-reference-efca993ca3b78770,MedVet (Campbell),https://www.medvet.com/location/campbell/,unknown,,,,,,,
-reference-15fdd4b6a64a97ca,Beacon Veterinary Specialists,https://beacon.vet/,unknown,,,,,,,
-reference-696bddd344bde3c4,Oakvet Animal Specialty Hospitals,https://www.oakvetash.com/,unknown,,,,,,,
-reference-f0bb1eaa3b397def,Omega Veterinary Specialists,https://www.omegavetgroup.com/,unknown,,,,,,,
-reference-5462ccf877d49332,Sage Veterinary Centers (San Francisco),https://www.sagecenters.com/locations/san-francisco,unknown,,,,,,,
-reference-81cc247bce10ba40,Sage Veterinary Centers (Concord),https://www.sagecenters.com/locations/concord,unknown,,,,,,,
-reference-848a5a3bc40f38d9,TruVet Specialty & Emergency Hospital,https://www.truvetspecialty.com/,unknown,,,,,,,
-reference-94e8a3af0ad46946,Sage Veterinary Centers (Dublin),https://www.sagecenters.com/locations/dublin,unknown,,,,,,,
-reference-5e34acedbc26d670,Sage Veterinary Centers (Campbell),https://www.sagecenters.com/locations/campbell,unknown,,,,,,,
-reference-2380dd58116c308d,Sage Veterinary Centers (Redwood City),https://www.sagecenters.com/locations/redwood-city,unknown,,,,,,,
-reference-03a05754bfb9e348,San Francisco Animal Medical Center,https://www.sfamc.com/,unknown,,,,,,,
-reference-fc5e72fa2f3d135c,VCA Encina (in Walnut Creek),https://vcahospitals.com/encina,unknown,,,,,,,
-reference-7087f03a9cd5b67e,VCA Antioch,https://vcahospitals.com/east-bay-emergency,unknown,,,,,,,
-reference-9b7c963607ca74b0,Ironhorse Vet Care,https://www.ironhorsevetcare.com/,unknown,,,,,,,
-reference-23154b2a6aadd1fa,PETS Referral Center,https://www.petsreferralcenter.com/,unknown,,,,,,,
-reference-d26f5e09f8cf8a72,Pet Emergency & Specialty Center of Marin,https://pescm.com/,emergency,1 Thorndale Dr,San Rafael,CA,94903,415-456-7372,ER listed 24/7; call to confirm,2026-11-14
-reference-79db41d9e4088e37,North Peninsula Veterinary Emergency Clinic,https://sanmateoveter.com/,emergency,227 N. Amphlett Blvd,San Mateo,CA,94401,650-348-2575,Listed 24/7; call to confirm,2026-11-14
-reference-836796399154ee78,Solano-Napa Pet Specialty & Emergency,https://solanopetemergency.com/,emergency,4400 Central Place,Fairfield,CA,94534,707-864-1444,Listed 24/7; call to confirm,2026-11-14
-reference-90cb8af9af7e4593,Bishop Ranch Veterinary Center & Urgent Care,https://www.webvets.com/,unknown,,,,,,,
+external_id,name,website,care_type,address,city,state,postal_code,phone,hours_text,source_verified_at,species_reference,exam_fee,exam_fee_source,contact_source
+reference-ef677b0f23908a7a,Pacific Veterinary Emergency + Specialty Hospital,https://www.pacvetemergency.com/,unknown,3210 Old Tunnel Road,Lafayette,,94549,(925) 297-5751,,,,,,https://www.pacvetemergency.com/
+reference-1afe3ea923d7eb79,Remedy Veterinary Specialists,https://www.remedyvets.com/,unknown,216 11th Street,San Francisco,,94103,(415) 967-3303,,,dogs and cats only,375,"Hospital interview, Oct 9, 2026; confirm current fee",https://www.remedyvets.com/
+reference-d1e039ca1788d8b7,MedVet (Silicon Valley),https://www.medvet.com/location/silicon-valley/,unknown,7090 Santa Teresa Blvd.,San Jose,,95139,(408) 649-7070,,,dogs and cats only,,,https://www.medvet.com/location/silicon-valley/
+reference-789f9e7c2a7fe8e6,Veterinary Emergency Group (San Ramon),https://www.veg.com/locations/california/san-ramon,unknown,2431 San Ramon Valley Boulevard,San Ramon,,94583,(925) 718-7771,,,"Common pets, small animals, and some exotics (ex. lizards, rabbits). No large animals like cows, horses, or giraffes.",,,https://www.veg.com/locations/california/san-ramon
+reference-76beb366cebda1b6,Veterinary Emergency Group (Larkspur),https://www.veg.com/locations/california/larkspur,unknown,2048 Redwood Highway,Greenbrae,,94904,(415) 651-8118,,,"Mainly helps cats and dogs, but can stabilize other animals in emergencies (ex. birds, donkeys, pigs)",,,https://www.veg.com/locations/california/larkspur
+reference-f1caabd5432e14ea,MedVet Mountain View,https://www.medvet.com/location/mountain-view/,emergency,601 Showers Dr.,Mountain View,CA,94040,(650) 494-1461,ER listed 24/7; call to confirm,2026-11-14,dogs and cats only,,,https://www.medvet.com/location/mountain-view/
+reference-dcf3b03486ebb44c,Veterinary Emergency Group (San Jose),https://www.veg.com/locations/california/san-jose,unknown,725 Ridder Park Drive,San Jose,,95131,(408) 834-8180,,,"dogs, cats, exotics",,,https://www.veg.com/locations/california/san-jose
+reference-97337da7ba9c3b8b,Ocean Avenue Veterinary Group,https://oceanavevethosp.com/,unknown,1001 Ocean Avenue,San Francisco,,94112,(415) 586-5327,,,dogs and cats only,,,https://oceanavevethosp.com/
+reference-efca993ca3b78770,MedVet (Campbell),https://www.medvet.com/location/campbell/,unknown,905 Dell Ave.,Campbell,,95008,(408) 371-6252,,,dogs and cats only,,,https://www.medvet.com/location/campbell/
+reference-15fdd4b6a64a97ca,Beacon Veterinary Specialists,https://beacon.vet/,unknown,1618 Washington Boulevard,Fremont,,94539,(510) 657-6343,,,dogs and cats only,,,https://beacon.vet/
+reference-696bddd344bde3c4,Oakvet Animal Specialty Hospitals,https://www.oakvetash.com/,unknown,1133 7th Street,Oakland,,94607,(510) 879-4888,,,dogs and cats only,,,https://www.oakvetash.com/schedule-appointment/
+reference-f0bb1eaa3b397def,Omega Veterinary Specialists,https://www.omegavetgroup.com/,unknown,251 N. Amphlett Boulevard,San Mateo,,94401,(650) 781-4239,,,dogs and cats only,,,https://www.omegavetgroup.com/
+reference-5462ccf877d49332,Sage Veterinary Centers (San Francisco),https://www.sagecenters.com/locations/san-francisco,unknown,600 Alabama Street,San Francisco,,94110,(415) 566-0540,,,dogs and cats only,,,https://www.sagecenters.com/locations/san-francisco
+reference-81cc247bce10ba40,Sage Veterinary Centers (Concord),https://www.sagecenters.com/locations/concord,unknown,2055 Meridian Park Boulevard,Concord,,94520,(925) 627-7243,,,dogs and cats only,,,https://www.sagecenters.com/locations/concord
+reference-848a5a3bc40f38d9,TruVet Specialty & Emergency Hospital,https://www.truvetspecialty.com/,unknown,"2620 Lakeville Highway, Building D",Petaluma,,94954,(707) 940-8444,,,dogs and cats only,,,https://www.truvetspecialty.com/
+reference-94e8a3af0ad46946,Sage Veterinary Centers (Dublin),https://www.sagecenters.com/locations/dublin,unknown,7121 Amador Plaza Road,Dublin,,94568,(925) 574-7243,,,dogs and cats only,,,https://www.sagecenters.com/locations/dublin
+reference-5e34acedbc26d670,Sage Veterinary Centers (Campbell),https://www.sagecenters.com/locations/campbell,unknown,907 Dell Avenue,Campbell,,95008,(408) 343-7243,,,dogs and cats only,,,https://www.sagecenters.com/locations/campbell
+reference-2380dd58116c308d,Sage Veterinary Centers (Redwood City),https://www.sagecenters.com/locations/redwood-city,unknown,934 Charter Street,Redwood City,,94063,(650) 417-7243,,,dogs and cats only,,,https://www.sagecenters.com/locations/redwood-city
+reference-03a05754bfb9e348,San Francisco Animal Medical Center,https://www.sfamc.com/,unknown,2343 Fillmore Street,San Francisco,,94115,(415) 465-6291,,,dogs and cats only,,,https://www.sfamc.com/contact/directory
+reference-fc5e72fa2f3d135c,VCA Encina (in Walnut Creek),https://vcahospitals.com/encina,unknown,2803 Ygnacio Valley Road,Walnut Creek,,94598,(925) 937-5000,,,dogs and cats only,,,https://vcahospitals.com/encina
+reference-7087f03a9cd5b67e,VCA Antioch,https://vcahospitals.com/east-bay-emergency,unknown,1312 Sunset Drive,Antioch,,94509,(925) 754-5001,,,dogs and cats only,,,https://vcahospitals.com/east-bay-emergency
+reference-9b7c963607ca74b0,Ironhorse Vet Care,https://www.ironhorsevetcare.com/,unknown,7660 Amador Valley Boulevard,Dublin,,94568,(925) 556-1234,,,dogs and cats only,,,https://www.ironhorsevetcare.com/
+reference-23154b2a6aadd1fa,PETS Referral Center,https://www.petsreferralcenter.com/,unknown,1048 University Avenue,Berkeley,,94710,(510) 548-6684,,,"dogs, cats, and rabbits",,,https://www.petsreferralcenter.com/
+reference-d26f5e09f8cf8a72,Pet Emergency & Specialty Center of Marin,https://pescm.com/,emergency,1 Thorndale Drive,San Rafael,CA,94903,(415) 456-7372,ER listed 24/7; call to confirm,2026-11-14,dogs and cats only,,,https://pescm.com/
+reference-79db41d9e4088e37,North Peninsula Veterinary Emergency Clinic,https://sanmateoveter.com/,emergency,227 N. Amphlett Boulevard,San Mateo,CA,94401,(650) 348-2575,Listed 24/7; call to confirm,2026-11-14,dogs and cats only,,,https://sanmateoveter.com/contact-us
+reference-836796399154ee78,Solano-Napa Pet Specialty & Emergency,https://solanopetemergency.com/,emergency,4400 Central Place,Fairfield,CA,94534,(707) 864-1444,Listed 24/7; call to confirm,2026-11-14,,,,https://solanopetemergency.com/
+reference-90cb8af9af7e4593,Bishop Ranch Veterinary Center & Urgent Care,https://www.webvets.com/,unknown,2000 Bishop Drive,San Ramon,,94583,(925) 866-8387,,,dogs and cats only,,,https://www.webvets.com/
