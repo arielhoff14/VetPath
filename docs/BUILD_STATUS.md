@@ -1,0 +1,9 @@
+# Build status
+
+The public [hackathon MVP](https://vetpath-care-demo.aheadchime1.chatgpt.site) is a shared simulation. It includes 27 founder-supplied provider website references, a fictional clinic queue, simulated role-specific actions, availability, and activity counts. Only predefined synthetic cases are accepted; roles are not authenticated. Its source is in `hackathon-demo/`.
+
+The separate PostgreSQL application at the repository root is an **unfinished pilot** and must not be used for real patient data or clinical decisions. Its development branch includes staff sessions and scoped invitations, directory search, expiring availability, CSV/XLSX snapshots, an internal source editor, a credential-dependent Google Sheets polling adapter, owner case links, basic intake and patient-flow actions, appointment requests, handoffs, a private local attachment adapter, staff coverage, call logging and preliminary pilot reporting.
+
+Still incomplete or unverified for a pilot: independent security and clinical review; complete multi-tenant authorization and handoff testing; comprehensive provenance, duplicate review, conflict resolution and rollback; a verified live Google Sheets connection; full hours, services, wait ranges, geography and financial filters; messaging delivery and a usable sandbox inbox; comprehensive reports and privacy/retention tools; complete demo scenario controls and reset; reliable production deployment, backup and restore; and full end-to-end/accessibility testing. External AI, SMS/email, PIMS, and billing are not connected. Consult the original build brief for all acceptance criteria.
+
+Local tests use a PostgreSQL-compatible embedded engine. GitHub Actions also runs PostgreSQL 17 integration tests, including concurrent slot confirmation and a Sheets fixture. The public hackathon demo has been exercised in separate browser tabs; its role selection is only a simulation, not an authorization system.

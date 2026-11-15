@@ -1,0 +1,9 @@
+import {readJsonLimited} from '../../../../server/http/json';
+import {z} from 'zod';
+import {sameOrigin} from '../../../../server/auth/authorize';
+import {db} from '../../../../server/db/pool';
+import {requestSlot} from '../../../../server/services/flow';
+import {readOwnerCase,reportChange} from '../../../../server/services/intake';
+const tokenSchema=z.string().regex(/^[A-Za-z0-9_-]{43}$/);
+export async function GET(request:Request){const token=tokenSchema.safeParse(request.headers.get('x-case-token'));if(!token.success)return Response.json({error:'Invalid link'},{status:401});try{const item=await readOwnerCase(db(),token.data);return item?Response.json(item,{headers:{'Cache-Control':'no-store','Referrer-Policy':'no-referrer'}}):Response.json({error:'This link is invalid or expired.'},{status:404});}catch{return Response.json({error:'Case unavailable. Call the clinic directly.'},{status:503});}}
+export async function POST(request:Request){if(!sameOrigin(request))return Response.json({error:'Invalid origin'},{status:403});const token=tokenSchema.safeParse(request.headers.get('x-case-token'));if(!token.success)return Response.json({error:'Invalid link'},{status:401});try{if(Number(request.headers.get('content-length'))>10000)return Response.json({error:'Message too large'},{status:413});const body=z.discriminatedUnion('action',[z.object({action:z.literal('message'),message:z.string().trim().min(1).max(3000)}),z.object({action:z.literal('slot'),slotId:z.uuid()})]).safeParse(await readJsonLimited(request,10000));if(!body.success)return Response.json({error:'Invalid request'},{status:400});if(body.data.action==='message')await reportChange(db(),token.data,body.data.message);else await requestSlot(db(),token.data,body.data.slotId);return Response.json({saved:true},{headers:{'Cache-Control':'no-store'}});}catch{return Response.json({error:'Could not send update. Call the clinic directly.'},{status:503});}}

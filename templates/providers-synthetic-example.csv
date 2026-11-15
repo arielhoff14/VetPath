@@ -1,0 +1,3 @@
+external_id,clinic_name,address,latitude,longitude,care_type,phone,species,services,source_url,website,city,state,postal_code,hours_text,exam_fee_min_usd,exam_fee_max_usd,exam_fee_scope,payment_options,last_verified_at
+sample-1,Demo Example Emergency,100 Fictional Way,37.3382,-121.8863,emergency,,dog|cat,emergency,,,San Jose,CA,95112,Hours unconfirmed,,,,,
+sample-2,Demo Example Urgent,200 Fictional Way,37.3541,-121.9552,urgent,,dog|cat,urgent,,,Santa Clara,CA,95050,Hours unconfirmed,,,,,

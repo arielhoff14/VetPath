@@ -1,0 +1,2 @@
+import {describe,it,expect} from 'vitest';import {detectType} from '../../src/server/storage/private';
+describe('private attachment validation',()=>{it('requires matching signatures and size',()=>{expect(detectType(new TextEncoder().encode('%PDF-1.7'),'application/pdf')).toBe('application/pdf');expect(detectType(new TextEncoder().encode('<script>'),'image/png')).toBeNull();expect(detectType(new Uint8Array(5*1024*1024+1),'text/plain')).toBeNull();expect(detectType(new Uint8Array([0]),'text/plain')).toBeNull()});});
